@@ -24,26 +24,37 @@ import {
   Center,
   VStack,
   Container,
+  Switch,
+  useBoolean,
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
-import { HiPencil } from 'react-icons/hi'
+import { HiMinus, HiPencil, HiPlus } from 'react-icons/hi'
+import img from '../images/source.svg'
+
 const ShoppingList = () => {
+  const [complete, setComplete] = useBoolean()
   return (
     <>
       <VStack
         p={'4'}
         bgColor={'green.100'}
-        color='blackAlpha.900'
         width={'100%'}
         maxW='400px'
+        height={'100vh'}
+        minH={'fit-content'}
       >
-        <Flex>
-          Header
-          <VStack>
-            <Text>Didn't find what you nedd?</Text>
-            <Button variant={'solid'} colorScheme='gray'>
-              Add item
-            </Button>
+        <Flex
+          borderRadius={'lg'}
+          width={'90%'}
+          height={'20%'}
+          bgColor={'teal.600'}
+        >
+          <Image src={img} alt='Dan Abramov' />
+          <VStack justifyContent='center'>
+            <Text color={'white'} fontSize={'1.2em'} textAlign='left'>
+              Didn't find what you need?
+            </Text>
+            <Button>Add item</Button>
           </VStack>
         </Flex>
         <Flex width={'100%'} justifyContent={'space-between'}>
@@ -65,29 +76,80 @@ const ShoppingList = () => {
         >
           Meat and fish
         </Text>
-        <Flex width={'100%'} justifyContent={'space-between'}>
-          <Text fontSize='18px'>Avocoda</Text>
-          <Button variant={'outline'} colorScheme='green' p={'0.5em'}>
-            3 pcs
-          </Button>
+
+        <Flex
+          width={'100%'}
+          justifyContent={'space-between'}
+          alignItems='center'
+        >
+          <Switch
+            colorScheme='green'
+            color={'green.300'}
+            size='lg'
+            onChange={setComplete.toggle}
+          />
+          <Text
+            textDecoration={complete ? 'line-through' : 'none'}
+            fontSize='18px'
+          >
+            Avocoda
+          </Text>
+
+          <Flex alignItems={'center'}>
+            <IconButton
+              colorScheme={'green'}
+              backgroundColor={'green.500'}
+              color={'gray.50'}
+              size='sm'
+              icon={<HiMinus />}
+            />
+            <Text color='green' p={'0.5em'}>
+              3 pcs
+            </Text>
+
+            <IconButton
+              colorScheme={'green'}
+              backgroundColor={'green.500'}
+              color={'gray.50'}
+              size='sm'
+              icon={<HiPlus />}
+            />
+          </Flex>
         </Flex>
         <Flex width={'100%'} justifyContent={'space-between'}>
-          <Text fontSize='18px'>Avocoda</Text>
-          <Button variant={'outline'} colorScheme='green' p={'0.5em'}>
-            3 pcs
-          </Button>
-        </Flex>
-        <Flex width={'100%'} justifyContent={'space-between'}>
-          <Text fontSize='18px'>Avocoda</Text>
-          <Button variant={'outline'} colorScheme='green' p={'0.5em'}>
-            3 pcs
-          </Button>
-        </Flex>
-        <Flex width={'100%'} justifyContent={'space-between'}>
-          <Text fontSize='18px'>Avocoda</Text>
-          <Button variant={'outline'} colorScheme='green' p={'0.5em'}>
-            3 pcs
-          </Button>
+          <Switch
+            colorScheme='green'
+            color={'green.300'}
+            size='lg'
+            onChange={setComplete.toggle}
+          />
+          <Text
+            textDecoration={complete ? 'line-through' : 'none'}
+            fontSize='18px'
+          >
+            Avocoda
+          </Text>
+
+          <Flex alignItems={'center'}>
+            <IconButton
+              colorScheme={'green'}
+              backgroundColor={'green.500'}
+              color={'gray.50'}
+              size='sm'
+              icon={<HiMinus />}
+            />
+            <Text color='green' p={'0.5em'}>
+              3 pcs
+            </Text>
+
+            <IconButton
+              colorScheme={'green'}
+              backgroundColor={'green.500'}
+              color={'gray.50'}
+              size='sm'
+              icon={<HiPlus />}
+            />
+          </Flex>
         </Flex>
       </VStack>
     </>

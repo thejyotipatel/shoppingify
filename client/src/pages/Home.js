@@ -27,6 +27,8 @@ import {
 import { RiSearchLine } from 'react-icons/ri'
 import { AiOutlinePlus } from 'react-icons/ai'
 import ShoppingList from '../layout/ShoppingList'
+import AddItemsList from '../layout/AddItemsList'
+import DetailItem from '../layout/DetailItem'
 
 const Data = [
   { item: 'avacado' },
@@ -150,8 +152,64 @@ const Home = () => {
               )
             })}
           </Wrap>
+          <Wrap mt={'8'} spacing='8'>
+            {Data.map((item, index) => {
+              return (
+                <WrapItem key={index}>
+                  <Flex
+                    minW={'180px'}
+                    minH={'80px'}
+                    _hover={{
+                      boxShadow: 'lg',
+                    }}
+                    cursor={'pointer'}
+                    align='center'
+                    justifyContent={'space-evenly'}
+                    bg='green.100'
+                    borderRadius={'md'}
+                    textTransform='capitalize'
+                    boxShadow={'md'}
+                  >
+                    {item.item}
+                    <Icon
+                      color={'green.500'}
+                      fontSize='2xl'
+                      as={AiOutlinePlus}
+                    />
+                  </Flex>
+                </WrapItem>
+              )
+            })}
+
+            {Data.map((item, index) => {
+              return (
+                <WrapItem key={index}>
+                  <Flex
+                    minW={'180px'}
+                    minH={'80px'}
+                    cursor={'pointer'}
+                    align='center'
+                    justifyContent={'space-evenly'}
+                    bg='green.100'
+                    borderRadius={'md'}
+                    textTransform='capitalize'
+                    boxShadow={'md'}
+                  >
+                    {item.item}
+                    <Icon
+                      color={'green.500'}
+                      fontSize='2xl'
+                      as={AiOutlinePlus}
+                    />
+                  </Flex>
+                </WrapItem>
+              )
+            })}
+          </Wrap>
         </Box>
         <ShoppingList />
+        {/* <AddItemsList /> */}
+        {/* <DetailItem /> */}
       </Flex>
     </>
   )

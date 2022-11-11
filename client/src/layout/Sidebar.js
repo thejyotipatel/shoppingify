@@ -28,7 +28,7 @@ const Sidebar = () => {
   return (
     <>
       <Button margin={'2'} position={'fixed'} top={'1em'} variant={'unstyled'}>
-        <Image src={img} alt='Dan Abramov' />
+        <Image src={img} alt='logo' />
       </Button>
       <Tabs align='center' orientation='vertical' w={'100%'} h={'100%'}>
         <TabList gap={'4'}>
