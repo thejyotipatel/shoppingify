@@ -6,6 +6,8 @@ import {
   REGISTER_USER_BEGIN,
   REGISTER_USER_SUCCESS,
   SET_QUESTION,
+  DISPLAY_ALERT,
+  CLEAR_ALERT,
 } from './action'
 import List from '../utils/List'
 const initalState = {
@@ -22,6 +24,9 @@ const initalState = {
   note: '',
   imageUrl: '',
   category: '',
+  showAlert: false,
+  alertText: '',
+  alertType: '',
 }
 
 const AppContext = React.createContext()
@@ -35,10 +40,24 @@ const AppProvider = ({ children }) => {
   const filterItem = (query) => {
     // filterItems = state.listOfItems.filter(item=> )
   }
+  const displayAlert = () => {
+    dispatch({ type: DISPLAY_ALERT })
+    clearAlert()
+  }
+
+  const clearAlert = () => {
+    setTimeout(() => {
+      dispatch({ type: CLEAR_ALERT })
+    }, 1000)
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
+        handleChange,
+        displayAlert,
+        clearAlert,
       }}
     >
       {children}
