@@ -30,8 +30,20 @@ import {
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
 import { HiPencil } from 'react-icons/hi'
+import { useState } from 'react'
+
+const initalState = {
+  name: '',
+  note: '',
+  imageUrl: '',
+  category: '',
+}
 
 const AddItemsList = () => {
+  const [value, setValue] = useState(initalState)
+  const handleChange = (e) => {
+    setValue({ ...value, [e.target.value]: e.target.value })
+  }
   return (
     <VStack
       p={'4'}
@@ -53,8 +65,14 @@ const AddItemsList = () => {
             _focusVisible={{
               borderColor: 'green.300',
             }}
+            _hover={{
+              borderColor: 'green.300',
+            }}
             type='text'
             placeholder='Enter a name'
+            name='name'
+            value={value.name}
+            onChange={handleChange}
           />
         </FormControl>
         <FormControl my='4'>
@@ -63,6 +81,9 @@ const AddItemsList = () => {
             borderColor={'green.100'}
             borderWidth='0.12em'
             _focusVisible={{
+              borderColor: 'green.300',
+            }}
+            _hover={{
               borderColor: 'green.300',
             }}
             placeholder='Enter a note'
@@ -79,6 +100,9 @@ const AddItemsList = () => {
             _focusVisible={{
               borderColor: 'green.300',
             }}
+            _hover={{
+              borderColor: 'green.300',
+            }}
           />
         </FormControl>
         <FormControl my='4'>
@@ -87,6 +111,9 @@ const AddItemsList = () => {
             borderColor={'green.100'}
             borderWidth='0.12em'
             _focusVisible={{
+              borderColor: 'green.300',
+            }}
+            _hover={{
               borderColor: 'green.300',
             }}
             type='text'

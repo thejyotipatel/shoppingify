@@ -33,7 +33,7 @@ import { RiSearchLine } from 'react-icons/ri'
 import { HiPencil } from 'react-icons/hi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
 import img from '../images/img.jpg'
-
+import { useAppContext } from '../context/appContext'
 const Details = {
   image: img,
   name: 'pineapple',
@@ -41,6 +41,7 @@ const Details = {
   note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi itaque vero culpa, corporis nihil quibusdam expedita dolor veritatis sequi id ipsum quis perferendis. Deserunt labore, aliquam illo veniam optio voluptatibus.',
 }
 const DetailItem = () => {
+  const { listOfItems } = useAppContext()
   return (
     <VStack
       p={'4'}
@@ -48,7 +49,7 @@ const DetailItem = () => {
       maxW='400px'
       height={'100vh'}
       minH={'fit-content'}
-      spacing='4'
+      position={'relative'}
     >
       <Link
         width={'inherit'}
@@ -111,13 +112,44 @@ const DetailItem = () => {
             {Details.note}
           </Text>
         </VStack>
-        <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
+        {/* <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
           <Button color={'gray.400'} variant='unstyled'>
             Delete
           </Button>
           <Button colorScheme={'green'}>Add to list</Button>
-        </Flex>
+        </Flex> */}
       </Box>
+      <Flex
+        position={'fixed'}
+        bottom='0px'
+        maxW={'400px'}
+        width={'100%'}
+        justifyContent='space-evenly'
+        bgColor={'gray.50'}
+      >
+        <Button
+          width='100%'
+          variant={'unstyled'}
+          color={'gray.400'}
+          py={'5'}
+          fontSize={'xl'}
+          fontWeight={'bold'}
+        >
+          Cancel list
+        </Button>
+        <Button
+          height={'100%'}
+          py={'5'}
+          width='100%'
+          variant={'solid'}
+          colorScheme='green'
+          borderRadius={0}
+          fontSize={'xl'}
+          fontWeight={'bold'}
+        >
+          Add to list
+        </Button>
+      </Flex>
     </VStack>
   )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Box,
   Tabs,
@@ -26,13 +26,25 @@ import {
   Container,
   Switch,
   useBoolean,
+  FormLabel,
+  FormControl,
+  Checkbox,
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
 import { HiMinus, HiPencil, HiPlus } from 'react-icons/hi'
 import img from '../images/source.svg'
 
 const ShoppingList = () => {
-  const [complete, setComplete] = useBoolean()
+  const [complete, setComplete] = useState(false)
+  const [toogle, setToogle] = useBoolean()
+  const [toogleAmount, setToogleAmount] = useBoolean()
+  const [amount, setAmount] = useState(1)
+
+  const amountChange = (a) => {
+    a = amount <= 1 ? a == 1 : a
+    return setAmount(amount + a)
+  }
+
   return (
     <>
       <VStack
@@ -42,6 +54,7 @@ const ShoppingList = () => {
         maxW='400px'
         height={'100vh'}
         minH={'fit-content'}
+        position='relative'
       >
         <Flex
           borderRadius={'lg'}
@@ -82,74 +95,83 @@ const ShoppingList = () => {
           justifyContent={'space-between'}
           alignItems='center'
         >
-          <Switch
-            colorScheme='green'
-            color={'green.300'}
-            size='lg'
-            onChange={setComplete.toggle}
-          />
-          <Text
+          {toogle && (
+            <Checkbox
+              colorScheme='green'
+              size={'lg'}
+              borderColor='green.300'
+              onChange={() => setComplete(!complete)}
+            ></Checkbox>
+          )}
+          <Button
+            variant={'unstyled'}
             textDecoration={complete ? 'line-through' : 'none'}
             fontSize='18px'
+            onClick={setToogle.toggle}
           >
             Avocoda
-          </Text>
+          </Button>
 
           <Flex alignItems={'center'}>
-            <IconButton
-              colorScheme={'green'}
-              backgroundColor={'green.500'}
-              color={'gray.50'}
-              size='sm'
-              icon={<HiMinus />}
-            />
-            <Text color='green' p={'0.5em'}>
-              3 pcs
-            </Text>
-
-            <IconButton
-              colorScheme={'green'}
-              backgroundColor={'green.500'}
-              color={'gray.50'}
-              size='sm'
-              icon={<HiPlus />}
-            />
+            {toogleAmount && (
+              <IconButton
+                colorScheme={'green'}
+                backgroundColor={'green.500'}
+                color={'gray.50'}
+                size='sm'
+                icon={<HiMinus />}
+                onClick={() => amountChange(-1)}
+              />
+            )}
+            <Button
+              variant={'unstyled'}
+              color='green'
+              p={'0.5em'}
+              onClick={setToogleAmount.toggle}
+            >
+              {amount} pcs
+            </Button>
+            {toogleAmount && (
+              <IconButton
+                colorScheme={'green'}
+                backgroundColor={'green.500'}
+                color={'gray.50'}
+                size='sm'
+                icon={<HiPlus />}
+                onClick={() => amountChange(1)}
+              />
+            )}
           </Flex>
         </Flex>
-        <Flex width={'100%'} justifyContent={'space-between'}>
-          <Switch
-            colorScheme='green'
-            color={'green.300'}
-            size='lg'
-            onChange={setComplete.toggle}
-          />
-          <Text
-            textDecoration={complete ? 'line-through' : 'none'}
-            fontSize='18px'
+        <Flex
+          position={'absolute'}
+          bottom='0'
+          width={'inherit'}
+          justifyContent='space-evenly'
+          bgColor={'gray.50'}
+        >
+          <Button
+            width='100%'
+            variant={'unstyled'}
+            color={'gray.400'}
+            py={'5'}
+            fontSize={'xl'}
+            fontWeight={'bold'}
           >
-            Avocoda
-          </Text>
-
-          <Flex alignItems={'center'}>
-            <IconButton
-              colorScheme={'green'}
-              backgroundColor={'green.500'}
-              color={'gray.50'}
-              size='sm'
-              icon={<HiMinus />}
-            />
-            <Text color='green' p={'0.5em'}>
-              3 pcs
-            </Text>
-
-            <IconButton
-              colorScheme={'green'}
-              backgroundColor={'green.500'}
-              color={'gray.50'}
-              size='sm'
-              icon={<HiPlus />}
-            />
-          </Flex>
+            Cancel list
+          </Button>
+          <Button
+            height={'100%'}
+            py={'5'}
+            width='100%'
+            variant={'solid'}
+            colorScheme='green'
+            borderRadius={0}
+            fontSize={'xl'}
+            fontWeight={'bold'}
+          >
+            Completed list
+          </Button>
         </Flex>
       </VStack>
     </>

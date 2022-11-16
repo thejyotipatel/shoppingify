@@ -23,14 +23,20 @@ import {
   WrapItem,
   Center,
   Container,
+  Grid,
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
 import { AiOutlinePlus } from 'react-icons/ai'
 import ShoppingList from '../layout/ShoppingList'
 import AddItemsList from '../layout/AddItemsList'
 import DetailItem from '../layout/DetailItem'
-
+import { useState } from 'react'
+import { useAppContext } from '../context/appContext'
+import Item from '../components/Item'
 const Data = [
+  { item: 'avacado' },
+  { item: 'mango' },
+  { item: 'banana' },
   { item: 'avacado' },
   { item: 'mango' },
   { item: 'banana' },
@@ -40,10 +46,27 @@ const Data = [
   // list: ['avacado', 'Pork', 'Checken 1kg', 'mango', 'banana'],
 ]
 const Home = () => {
+  const [searchItems, setSearchItems] = useState('')
+  const [filterList, setFilterList] = useState(Data)
+  const { listOfItems } = useAppContext()
+
+  const handleSearch = () => {
+    if (query.length >= 1) {
+      let list = listOfItems.filter((item) => {
+        return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1
+      })
+      let c = 'mvmn'
+      c.toLowerCase()
+      setFilterList(...list)
+    } else {
+      setFilterList(listOfItems)
+    }
+  }
+
   return (
     <>
-      <Flex>
-        <Box m={4}>
+      <Grid gridTemplateColumns={'73% 27%'} justify-items={'stretch'}>
+        <Box scrollBehavior={'contant'} m={4}>
           <Stack direction={{ base: 'column', md: 'row' }} gap={'8'}>
             <Text fontSize='1.5em' maxW={'30ch'} textAlign={'left'}>
               <Highlight
@@ -63,154 +86,35 @@ const Home = () => {
                 pointerEvents='none'
                 children={<RiSearchLine color='gray.300' />}
               />
-              <Input type='text' placeholder='search item' />
+              <Input
+                value={searchItems}
+                onChange={(e) => setSearchItems(e.target.value)}
+                type='text'
+                placeholder='Search item'
+                borderColor={'green.100'}
+                borderWidth='0.12em'
+                _hover={{
+                  borderColor: 'green.300',
+                }}
+                _focusVisible={{
+                  borderColor: 'green.300',
+                }}
+              />
             </InputGroup>
           </Stack>
           <Text textAlign={'left'} fontSize='1.2em' fontWeight={'400'} mt={'8'}>
-            Meat anf Fish
+            Meat and Fish
           </Text>
           <Wrap mt={'8'} spacing='8'>
-            {Data.map((item, index) => {
-              return (
-                <WrapItem key={index}>
-                  <Flex
-                    minW={'180px'}
-                    minH={'80px'}
-                    _hover={{
-                      boxShadow: 'lg',
-                    }}
-                    cursor={'pointer'}
-                    align='center'
-                    justifyContent={'space-evenly'}
-                    bg='green.100'
-                    borderRadius={'md'}
-                    textTransform='capitalize'
-                    boxShadow={'md'}
-                  >
-                    {item.item}
-                    <Icon
-                      color={'green.500'}
-                      fontSize='2xl'
-                      as={AiOutlinePlus}
-                    />
-                  </Flex>
-                </WrapItem>
-              )
-            })}
-
-            {Data.map((item, index) => {
-              return (
-                <WrapItem key={index}>
-                  <Flex
-                    minW={'180px'}
-                    minH={'80px'}
-                    cursor={'pointer'}
-                    align='center'
-                    justifyContent={'space-evenly'}
-                    bg='green.100'
-                    borderRadius={'md'}
-                    textTransform='capitalize'
-                    boxShadow={'md'}
-                  >
-                    {item.item}
-                    <Icon
-                      color={'green.500'}
-                      fontSize='2xl'
-                      as={AiOutlinePlus}
-                    />
-                  </Flex>
-                </WrapItem>
-              )
-            })}
-          </Wrap>
-          <Text textAlign={'left'} fontSize='1.2em' fontWeight={'400'} mt={'8'}>
-            Meat anf Fish
-          </Text>
-          <Wrap mt={'8'} spacing='8'>
-            {Data.map((item, index) => {
-              return (
-                <WrapItem key={index}>
-                  <Flex
-                    minW={'180px'}
-                    minH={'80px'}
-                    cursor={'pointer'}
-                    align='center'
-                    justifyContent={'space-evenly'}
-                    bg='green.100'
-                    borderRadius={'md'}
-                    textTransform='capitalize'
-                    boxShadow={'md'}
-                  >
-                    {item.item}
-                    <Icon
-                      color={'green.500'}
-                      fontSize='2xl'
-                      as={AiOutlinePlus}
-                    />
-                  </Flex>
-                </WrapItem>
-              )
-            })}
-          </Wrap>
-          <Wrap mt={'8'} spacing='8'>
-            {Data.map((item, index) => {
-              return (
-                <WrapItem key={index}>
-                  <Flex
-                    minW={'180px'}
-                    minH={'80px'}
-                    _hover={{
-                      boxShadow: 'lg',
-                    }}
-                    cursor={'pointer'}
-                    align='center'
-                    justifyContent={'space-evenly'}
-                    bg='green.100'
-                    borderRadius={'md'}
-                    textTransform='capitalize'
-                    boxShadow={'md'}
-                  >
-                    {item.item}
-                    <Icon
-                      color={'green.500'}
-                      fontSize='2xl'
-                      as={AiOutlinePlus}
-                    />
-                  </Flex>
-                </WrapItem>
-              )
-            })}
-
-            {Data.map((item, index) => {
-              return (
-                <WrapItem key={index}>
-                  <Flex
-                    minW={'180px'}
-                    minH={'80px'}
-                    cursor={'pointer'}
-                    align='center'
-                    justifyContent={'space-evenly'}
-                    bg='green.100'
-                    borderRadius={'md'}
-                    textTransform='capitalize'
-                    boxShadow={'md'}
-                  >
-                    {item.item}
-                    <Icon
-                      color={'green.500'}
-                      fontSize='2xl'
-                      as={AiOutlinePlus}
-                    />
-                  </Flex>
-                </WrapItem>
-              )
+            {listOfItems.map((item) => {
+              return <Item key={item.id} name={item.name} />
             })}
           </Wrap>
         </Box>
-        <ShoppingList />
-        {/* <AddItemsList /> */}
-        {/* <DetailItem /> */}
-      </Flex>
+        {/* <ShoppingList /> */}
+        <AddItemsList />
+        <DetailItem />
+      </Grid>
     </>
   )
 }
