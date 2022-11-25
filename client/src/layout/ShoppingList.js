@@ -44,17 +44,11 @@ const ShoppingList = () => {
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
   const [amount, setAmount] = useState(1)
-  // const [item, setItem] = useState(null)
-  // const [items, setItems] = useState(null)
 
   const amountChange = (a) => {
     a = amount <= 1 ? a == 1 : a
     return setAmount(amount + a)
   }
-
-  // if (shoopingList.length === 0 || shoopingList === null) {
-  //   return <p className='no-jobs'>No jobs to display...</p>
-  // }
   return (
     <>
       <VStack
