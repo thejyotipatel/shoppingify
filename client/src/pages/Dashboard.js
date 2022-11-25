@@ -7,7 +7,15 @@ import { useAppContext } from '../context/appContext'
 import ShoppingList from '../layout/ShoppingList'
 import DetailItem from '../layout/DetailItem'
 const Dashboard = () => {
-  const { showAlert, alertText, alertType } = useAppContext()
+  const {
+    showAlert,
+    alertText,
+    rightLayout,
+    alertType,
+    detailBox,
+    addItemBox,
+    listsBox,
+  } = useAppContext()
   return (
     <>
       {showAlert && (
@@ -18,6 +26,7 @@ const Dashboard = () => {
           width='fit-content'
           status={alertType}
           fontSize={'xl'}
+          zIndex='1000'
         >
           <AlertIcon />
           {alertText}
@@ -27,9 +36,9 @@ const Dashboard = () => {
         <Box>
           <Sidebar />
         </Box>
-        {/* <ShoppingList /> */}
-        {/* <AddItemsList /> */}
-        <DetailItem />
+        {detailBox && <DetailItem />}
+        {addItemBox && <AddItemsList />}
+        {listsBox && <ShoppingList />}
       </Grid>
     </>
   )

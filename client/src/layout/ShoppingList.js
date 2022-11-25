@@ -33,18 +33,28 @@ import {
 import { RiSearchLine } from 'react-icons/ri'
 import { HiMinus, HiPencil, HiPlus } from 'react-icons/hi'
 import img from '../images/source.svg'
+import shopping_re from '../images/undraw_gone_shopping_re_2lau.svg'
+import { useAppContext } from '../context/appContext'
 
 const ShoppingList = () => {
+  const { itemDetails, addItemBtn, addItemToList, shoopingList } =
+    useAppContext()
+
   const [complete, setComplete] = useState(false)
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
   const [amount, setAmount] = useState(1)
+  // const [item, setItem] = useState(null)
+  // const [items, setItems] = useState(null)
 
   const amountChange = (a) => {
     a = amount <= 1 ? a == 1 : a
     return setAmount(amount + a)
   }
 
+  // if (shoopingList.length === 0 || shoopingList === null) {
+  //   return <p className='no-jobs'>No jobs to display...</p>
+  // }
   return (
     <>
       <VStack
@@ -67,7 +77,7 @@ const ShoppingList = () => {
             <Text color={'white'} fontSize={'1.2em'} textAlign='left'>
               Didn't find what you need?
             </Text>
-            <Button>Add item</Button>
+            <Button onClick={addItemBtn}>Add item</Button>
           </VStack>
         </Flex>
         <Flex width={'100%'} justifyContent={'space-between'}>
@@ -89,60 +99,70 @@ const ShoppingList = () => {
         >
           Meat and fish
         </Text>
+        {shoopingList.length === 0 && (
+          <Image src={shopping_re} alt='shopping_re.avg' />
+        )}
 
-        <Flex
-          width={'100%'}
-          justifyContent={'space-between'}
-          alignItems='center'
-        >
-          {toogle && (
-            <Checkbox
-              colorScheme='green'
-              size={'lg'}
-              borderColor='green.300'
-              onChange={() => setComplete(!complete)}
-            ></Checkbox>
-          )}
-          <Button
-            variant={'unstyled'}
-            textDecoration={complete ? 'line-through' : 'none'}
-            fontSize='18px'
-            onClick={setToogle.toggle}
-          >
-            Avocoda
-          </Button>
+        {shoopingList.length > 0 &&
+          shoopingList.map((list) => {
+            return (
+              <Flex
+                key={list.id}
+                width={'100%'}
+                justifyContent={'space-between'}
+                alignItems='center'
+              >
+                {toogle && (
+                  <Checkbox
+                    colorScheme='green'
+                    size={'lg'}
+                    borderColor='green.300'
+                    onChange={() => setComplete(!complete)}
+                  ></Checkbox>
+                )}
+                <Button
+                  variant={'unstyled'}
+                  textDecoration={complete ? 'line-through' : 'none'}
+                  fontSize='18px'
+                  onClick={setToogle.toggle}
+                >
+                  {list[0]?.name}
+                </Button>
 
-          <Flex alignItems={'center'}>
-            {toogleAmount && (
-              <IconButton
-                colorScheme={'green'}
-                backgroundColor={'green.500'}
-                color={'gray.50'}
-                size='sm'
-                icon={<HiMinus />}
-                onClick={() => amountChange(-1)}
-              />
-            )}
-            <Button
-              variant={'unstyled'}
-              color='green'
-              p={'0.5em'}
-              onClick={setToogleAmount.toggle}
-            >
-              {amount} pcs
-            </Button>
-            {toogleAmount && (
-              <IconButton
-                colorScheme={'green'}
-                backgroundColor={'green.500'}
-                color={'gray.50'}
-                size='sm'
-                icon={<HiPlus />}
-                onClick={() => amountChange(1)}
-              />
-            )}
-          </Flex>
-        </Flex>
+                <Flex alignItems={'center'}>
+                  {toogleAmount && (
+                    <IconButton
+                      colorScheme={'green'}
+                      backgroundColor={'green.500'}
+                      color={'gray.50'}
+                      size='sm'
+                      icon={<HiMinus />}
+                      onClick={() => amountChange(-1)}
+                    />
+                  )}
+                  <Button
+                    variant={'unstyled'}
+                    color='green'
+                    p={'0.5em'}
+                    onClick={setToogleAmount.toggle}
+                  >
+                    {amount} pcs
+                  </Button>
+                  {toogleAmount && (
+                    <IconButton
+                      colorScheme={'green'}
+                      backgroundColor={'green.500'}
+                      color={'gray.50'}
+                      size='sm'
+                      icon={<HiPlus />}
+                      onClick={() => amountChange(1)}
+                    />
+                  )}
+                </Flex>
+              </Flex>
+            )
+          })}
+
         <Flex
           position={'absolute'}
           bottom='0'

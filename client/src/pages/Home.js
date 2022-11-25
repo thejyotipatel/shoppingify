@@ -43,9 +43,16 @@ const Data = [
   { item: 'banana' },
 ]
 const Home = () => {
-  const { listOfItems } = useAppContext()
+  const { listOfItems, displayDetailItem } = useAppContext()
   const [searchItems, setSearchItems] = useState('')
+  const addItem = (id) => {
+    console.log(id)
+  }
 
+  const detailItem = (id) => {
+    const item = listOfItems.filter((i) => i.id === id)
+    displayDetailItem({ ...item })
+  }
   return (
     <>
       <Box scrollBehavior={'contant'} m={4}>
@@ -91,7 +98,14 @@ const Home = () => {
           {listOfItems
             .filter((item) => item.name.toLowerCase().includes(searchItems))
             .map((items) => {
-              return <Item key={items.id} {...items} />
+              return (
+                <Item
+                  key={items.id}
+                  {...items}
+                  detailItem={detailItem}
+                  addItem={addItem}
+                />
+              )
             })}
         </Wrap>
       </Box>

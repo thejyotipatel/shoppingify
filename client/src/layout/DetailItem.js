@@ -32,16 +32,11 @@ import {
 import { RiSearchLine } from 'react-icons/ri'
 import { HiPencil } from 'react-icons/hi'
 import { MdOutlineKeyboardBackspace } from 'react-icons/md'
-import img from '../images/img.jpg'
 import { useAppContext } from '../context/appContext'
-const Details = {
-  image: img,
-  name: 'pineapple',
-  category: 'fruit and vegetable',
-  note: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi itaque vero culpa, corporis nihil quibusdam expedita dolor veritatis sequi id ipsum quis perferendis. Deserunt labore, aliquam illo veniam optio voluptatibus.',
-}
+
 const DetailItem = () => {
-  const { listOfItems } = useAppContext()
+  const { itemDetails, deleteItem, addItemToList, shoopingList, backButten } =
+    useAppContext()
   return (
     <VStack
       p={'4'}
@@ -51,15 +46,17 @@ const DetailItem = () => {
       minH={'fit-content'}
       position={'relative'}
     >
-      <Link
+      <Button
+        onClick={backButten}
         width={'inherit'}
-        href='#'
         justifyContent={'left'}
         alignItems='center'
         display={'flex'}
         color='green.500'
         fontSize='1.2em'
         gap={'1'}
+        w='fit-content'
+        variant={'unstyled'}
         textAlign='left'
         _hover={{
           textDecoration: 'none',
@@ -67,9 +64,9 @@ const DetailItem = () => {
       >
         <Icon fontSize='1.5em' as={MdOutlineKeyboardBackspace} />
         back
-      </Link>
+      </Button>
       <Box w={'100%'} py='4'>
-        <Image src={Details.image} alt='img' borderRadius={'2xl'} />
+        <Image src={itemDetails[0].image} alt='img' borderRadius={'2xl'} />
         <VStack w={'inherit'} py='4'>
           <Text
             fontSize={'xs'}
@@ -81,7 +78,7 @@ const DetailItem = () => {
             Name
           </Text>
           <Text fontWeight={'500'} textAlign={'left'} w='inherit'>
-            {Details.name}
+            {itemDetails[0].name}
           </Text>
         </VStack>
         <VStack py='4' w='inherit'>
@@ -95,7 +92,7 @@ const DetailItem = () => {
             Category
           </Text>
           <Text fontWeight={'500'} textAlign={'left'} w='inherit'>
-            {Details.category}
+            {itemDetails[0].category}
           </Text>
         </VStack>
         <VStack py='4' w='inherit'>
@@ -109,7 +106,7 @@ const DetailItem = () => {
             Note
           </Text>
           <Text fontWeight={'500'} textAlign={'justify'} w='inherit'>
-            {Details.note}
+            {itemDetails[0].note}
           </Text>
         </VStack>
         {/* <Flex py={'4'} width={'inherit'} justifyContent='space-evenly'>
@@ -134,8 +131,9 @@ const DetailItem = () => {
           py={'5'}
           fontSize={'xl'}
           fontWeight={'bold'}
+          onClick={() => deleteItem(itemDetails[0].id)}
         >
-          Cancel list
+          Delete item
         </Button>
         <Button
           height={'100%'}
@@ -146,6 +144,7 @@ const DetailItem = () => {
           borderRadius={0}
           fontSize={'xl'}
           fontWeight={'bold'}
+          onClick={() => addItemToList(itemDetails[0].id)}
         >
           Add to list
         </Button>

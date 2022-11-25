@@ -8,6 +8,11 @@ import {
   SET_QUESTION,
   DISPLAY_ALERT,
   CLEAR_ALERT,
+  DISPLAY_ITEM_DETAILS,
+  DELETE_ITEM,
+  ADD_ITEM_TO_LIST,
+  BACK_BUTTEN,
+  ADD_ITEM_TOOGLE_BUTTON,
 } from './action'
 import List from '../utils/List'
 const initalState = {
@@ -19,6 +24,7 @@ const initalState = {
   isLoading: false,
   showAlert: false,
   alertText: '',
+  itemDetails: {},
   item: null,
   name: '',
   note: '',
@@ -27,6 +33,9 @@ const initalState = {
   showAlert: false,
   alertText: '',
   alertType: '',
+  detailBox: false,
+  addItemBox: false,
+  listsBox: true,
 }
 
 const AppContext = React.createContext()
@@ -51,13 +60,44 @@ const AppProvider = ({ children }) => {
     }, 1000)
   }
 
+  const backButten = () => {
+    dispatch({ type: BACK_BUTTEN })
+  }
+  const addItemBtn = () => {
+    dispatch({ type: ADD_ITEM_TOOGLE_BUTTON })
+  }
+
+  const displayDetailItem = (item) => {
+    dispatch({ type: DISPLAY_ITEM_DETAILS, payload: { item } })
+  }
+
+  const deleteItem = (id) => {
+    let list = state.listOfItems.filter((item) => item.id !== id)
+    dispatch({ type: DELETE_ITEM, payload: { list } })
+    console.log(list)
+    clearAlert()
+  }
+
+  const addItemToList = (id) => {
+    let list = state.listOfItems.filter((item) => item.id === id)
+    let lists = [...state.shoopingList, list]
+    dispatch({ type: ADD_ITEM_TO_LIST, payload: { lists } })
+    console.log(lists)
+    clearAlert()
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
         handleChange,
         displayAlert,
+        backButten,
+        addItemBtn,
         clearAlert,
+        displayDetailItem,
+        deleteItem,
+        addItemToList,
       }}
     >
       {children}

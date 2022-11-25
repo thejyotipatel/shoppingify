@@ -1,7 +1,9 @@
 import React from 'react'
 import { Wrap, WrapItem, Flex, Button, IconButton } from '@chakra-ui/react'
 import { AiOutlinePlus } from 'react-icons/ai'
-const Item = ({ name, id, addItem }) => {
+import { useAppContext } from '../context/appContext'
+const Item = ({ name, id, addItem, detailItem }) => {
+  const { listOfItems, addItemToList } = useAppContext()
   return (
     <WrapItem>
       <Flex
@@ -25,6 +27,7 @@ const Item = ({ name, id, addItem }) => {
             bgColor: 'green.500',
             color: 'gray.100',
           }}
+          onClick={() => detailItem(id)}
         >
           {name}
         </Button>
@@ -41,7 +44,8 @@ const Item = ({ name, id, addItem }) => {
             bgColor: 'green.500',
             color: 'gray.100',
           }}
-          onClick={() => console.log(id)}
+          // onClick={() => addItem(id)}
+          onClick={() => addItemToList(id)}
           icon={<AiOutlinePlus />}
         />
       </Flex>
