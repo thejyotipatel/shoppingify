@@ -13,6 +13,7 @@ import {
   ADD_ITEM_TO_LIST,
   BACK_BUTTEN,
   ADD_ITEM_TOOGLE_BUTTON,
+  DELETE_ITEM_TO_LIST,
 } from './action'
 import List from '../utils/List'
 const initalState = {
@@ -80,9 +81,20 @@ const AppProvider = ({ children }) => {
 
   const addItemToList = (id) => {
     let list = state.listOfItems.filter((item) => item.id === id)
-    let lists = [...state.shoopingList, list]
-    dispatch({ type: ADD_ITEM_TO_LIST, payload: { lists } })
-    console.log(lists)
+    let item = state.shoopingList.filter((i) => i.id === id)
+    console.log(item)
+    // if(list.id === item.id){}
+    state.shoopingList.unshift(list)
+    // dispatch({ type: ADD_ITEM_TO_LIST, payload: { list } })
+    console.log(state.shoopingList)
+    clearAlert()
+  }
+
+  const deleteItemToList = (id) => {
+    let list = state.shoopingList.filter((item) => item.id !== id)
+    console.log(list)
+    dispatch({ type: DELETE_ITEM_TO_LIST, payload: { list } })
+    console.log(list)
     clearAlert()
   }
 
@@ -98,6 +110,7 @@ const AppProvider = ({ children }) => {
         displayDetailItem,
         deleteItem,
         addItemToList,
+        deleteItemToList,
       }}
     >
       {children}

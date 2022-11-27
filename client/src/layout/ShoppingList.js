@@ -35,10 +35,16 @@ import { HiMinus, HiPencil, HiPlus } from 'react-icons/hi'
 import img from '../images/source.svg'
 import shopping_re from '../images/undraw_gone_shopping_re_2lau.svg'
 import { useAppContext } from '../context/appContext'
+import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 
 const ShoppingList = () => {
-  const { itemDetails, addItemBtn, addItemToList, shoopingList } =
-    useAppContext()
+  const {
+    itemDetails,
+    addItemBtn,
+    addItemToList,
+    deleteItemToList,
+    shoopingList,
+  } = useAppContext()
 
   const [complete, setComplete] = useState(false)
   const [toogle, setToogle] = useBoolean()
@@ -120,8 +126,19 @@ const ShoppingList = () => {
                   fontSize='18px'
                   onClick={setToogle.toggle}
                 >
-                  {list[0]?.name}
+                  {list?.name}
                 </Button>
+
+                {toogle && (
+                  <IconButton
+                    variant={'unstyled'}
+                    color={'red'}
+                    fontSize={'2xl'}
+                    my={2}
+                    icon={<AiFillDelete />}
+                    onClick={() => deleteItemToList(list?.id)}
+                  />
+                )}
 
                 <Flex alignItems={'center'}>
                   {toogleAmount && (

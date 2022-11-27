@@ -7,6 +7,7 @@ import {
   ADD_ITEM_TO_LIST,
   BACK_BUTTEN,
   ADD_ITEM_TOOGLE_BUTTON,
+  DELETE_ITEM_TO_LIST,
 } from './action'
 import { initalState } from './appContext'
 
@@ -73,13 +74,25 @@ const reducer = (state, action) => {
   if (action.type === ADD_ITEM_TO_LIST) {
     return {
       ...state,
-      shoopingList: action.payload.lists,
+      // shoopingList: [...action.payload.lists],
       detailBox: false,
       addItemBox: false,
       listsBox: true,
       showAlert: true,
       alertType: 'success',
       alertText: 'Item is added!',
+    }
+  }
+  if (action.type === DELETE_ITEM_TO_LIST) {
+    return {
+      ...state,
+      shoopingList: action.payload.list,
+      detailBox: false,
+      addItemBox: false,
+      listsBox: true,
+      showAlert: true,
+      alertType: 'warning',
+      alertText: 'Item is deleted!',
     }
   }
 
