@@ -1,16 +1,11 @@
 import React, { useContext, useReducer } from 'react'
 import reducer from './reducer'
 import {
-  CLEAR_VALUES,
   HANDLE_CHANGE,
-  REGISTER_USER_BEGIN,
-  REGISTER_USER_SUCCESS,
-  SET_QUESTION,
   DISPLAY_ALERT,
   CLEAR_ALERT,
   DISPLAY_ITEM_DETAILS,
   DELETE_ITEM,
-  ADD_ITEM_TO_LIST,
   BACK_BUTTEN,
   ADD_ITEM_TOOGLE_BUTTON,
   DELETE_ITEM_TO_LIST,
