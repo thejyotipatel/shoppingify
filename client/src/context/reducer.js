@@ -8,6 +8,7 @@ import {
   BACK_BUTTEN,
   ADD_ITEM_TOOGLE_BUTTON,
   DELETE_ITEM_TO_LIST,
+  SET_COMPLETE_ITEM,
 } from './action'
 import { initalState } from './appContext'
 
@@ -74,7 +75,7 @@ const reducer = (state, action) => {
   if (action.type === ADD_ITEM_TO_LIST) {
     return {
       ...state,
-      // shoopingList: [...action.payload.lists],
+      shoopingList: action.payload.lists,
       detailBox: false,
       addItemBox: false,
       listsBox: true,
@@ -93,6 +94,11 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'warning',
       alertText: 'Item is deleted!',
+    }
+  }
+  if (action.type === SET_COMPLETE_ITEM) {
+    return {
+      ...state,
     }
   }
 

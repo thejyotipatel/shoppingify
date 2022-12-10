@@ -9,6 +9,8 @@ import {
   BACK_BUTTEN,
   ADD_ITEM_TOOGLE_BUTTON,
   DELETE_ITEM_TO_LIST,
+  ADD_ITEM_TO_LIST,
+  SET_COMPLETE_ITEM,
 } from './action'
 import List from '../utils/List'
 const initalState = {
@@ -22,6 +24,7 @@ const initalState = {
   alertText: '',
   itemDetails: {},
   item: null,
+  totalItems: 1,
   name: '',
   note: '',
   imageUrl: '',
@@ -42,9 +45,11 @@ const AppProvider = ({ children }) => {
   const handleChange = ({ name, value }) => {
     dispatch({ type: HANDLE_CHANGE, payload: { name, value } })
   }
+
   const filterItem = (query) => {
     // filterItems = state.listOfItems.filter(item=> )
   }
+
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT })
     clearAlert()
@@ -76,12 +81,14 @@ const AppProvider = ({ children }) => {
 
   const addItemToList = (id) => {
     let list = state.listOfItems.filter((item) => item.id === id)
+    list.completed = true
     let item = state.shoopingList.filter((i) => i.id === id)
-    console.log(item)
+    // console.log(item)
     // if(list.id === item.id){}
-    state.shoopingList.unshift(list)
-    // dispatch({ type: ADD_ITEM_TO_LIST, payload: { list } })
-    console.log(state.shoopingList)
+    // state.shoopingList.unshift(list)
+    let lists = [...state.shoopingList, list]
+    dispatch({ type: ADD_ITEM_TO_LIST, payload: { lists } })
+    // console.log(state.shoopingList)
     clearAlert()
   }
 
@@ -91,6 +98,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: DELETE_ITEM_TO_LIST, payload: { list } })
     console.log(list)
     clearAlert()
+  }
+
+  const setCompleteItem = (id) => {
+    state.shoopingList = state.shoopingList.filter((item) => {
+      if (item.id === id) {
+        item.completed = !item.completed
+      }
+    })
   }
 
   return (
@@ -106,6 +121,7 @@ const AppProvider = ({ children }) => {
         deleteItem,
         addItemToList,
         deleteItemToList,
+        setCompleteItem,
       }}
     >
       {children}

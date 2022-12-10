@@ -1,33 +1,12 @@
 import React, { useState } from 'react'
 import {
-  Box,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-  Tooltip,
-  Icon,
   Text,
   Image,
   Button,
   IconButton,
-  HStack,
-  InputGroup,
-  Input,
-  InputLeftElement,
   Flex,
-  Stack,
-  Highlight,
-  Wrap,
-  WrapItem,
-  Center,
   VStack,
-  Container,
-  Switch,
   useBoolean,
-  FormLabel,
-  FormControl,
   Checkbox,
 } from '@chakra-ui/react'
 import { RiSearchLine } from 'react-icons/ri'
@@ -38,15 +17,10 @@ import { useAppContext } from '../context/appContext'
 import { AiFillDelete, AiOutlineDelete } from 'react-icons/ai'
 
 const ShoppingList = () => {
-  const {
-    itemDetails,
-    addItemBtn,
-    addItemToList,
-    deleteItemToList,
-    shoopingList,
-  } = useAppContext()
+  const { addItemBtn, deleteItemToList, shoopingList, setCompleteItem } =
+    useAppContext()
 
-  const [complete, setComplete] = useState(false)
+  // const [complete, setComplete] = useState(false)
   const [toogle, setToogle] = useBoolean()
   const [toogleAmount, setToogleAmount] = useBoolean()
   const [amount, setAmount] = useState(1)
@@ -117,12 +91,12 @@ const ShoppingList = () => {
                     colorScheme='green'
                     size={'lg'}
                     borderColor='green.300'
-                    onChange={() => setComplete(!complete)}
+                    onChange={() => setCompleteItem(list.id)}
                   ></Checkbox>
                 )}
                 <Button
                   variant={'unstyled'}
-                  textDecoration={complete ? 'line-through' : 'none'}
+                  textDecoration={list?.completed ? 'line-through' : 'none'}
                   fontSize='18px'
                   onClick={setToogle.toggle}
                 >
