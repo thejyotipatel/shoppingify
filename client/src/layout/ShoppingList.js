@@ -81,7 +81,7 @@ const ShoppingList = () => {
           shoopingList.map((list) => {
             return (
               <Flex
-                key={list.id}
+                key={list?.id}
                 width={'100%'}
                 justifyContent={'space-between'}
                 alignItems='center'
@@ -91,16 +91,17 @@ const ShoppingList = () => {
                     colorScheme='green'
                     size={'lg'}
                     borderColor='green.300'
-                    onChange={() => setCompleteItem(list.id)}
+                    onChange={() => setCompleteItem(list[0]?.id)}
                   ></Checkbox>
                 )}
                 <Button
                   variant={'unstyled'}
                   textDecoration={list?.completed ? 'line-through' : 'none'}
                   fontSize='18px'
+                  textTransform='capitalize'
                   onClick={setToogle.toggle}
                 >
-                  {list?.name}
+                  {list[0]?.name}
                 </Button>
 
                 {toogle && (
@@ -110,7 +111,7 @@ const ShoppingList = () => {
                     fontSize={'2xl'}
                     my={2}
                     icon={<AiFillDelete />}
-                    onClick={() => deleteItemToList(list?.id)}
+                    onClick={() => deleteItemToList(list[0]?.id)}
                   />
                 )}
 

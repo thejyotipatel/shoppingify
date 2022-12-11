@@ -81,7 +81,8 @@ const AppProvider = ({ children }) => {
 
   const addItemToList = (id) => {
     let list = state.listOfItems.filter((item) => item.id === id)
-    list.completed = true
+    list.completed = false
+    list.id = Date.now()
     let item = state.shoopingList.filter((i) => i.id === id)
     // console.log(item)
     // if(list.id === item.id){}
@@ -106,6 +107,7 @@ const AppProvider = ({ children }) => {
         item.completed = !item.completed
       }
     })
+    // dispatch({type:SET_COMPLETE_ITEM, payload: })
   }
 
   return (
