@@ -82,7 +82,7 @@ const AppProvider = ({ children }) => {
   const addItemToList = (id) => {
     let list = state.listOfItems.filter((item) => item.id === id)
     list.completed = false
-    list.id = Date.now()
+    list.id = new Date().getUTCMillisecands()
     let item = state.shoopingList.filter((i) => i.id === id)
     // console.log(item)
     // if(list.id === item.id){}
@@ -102,12 +102,17 @@ const AppProvider = ({ children }) => {
   }
 
   const setCompleteItem = (id) => {
-    state.shoopingList = state.shoopingList.filter((item) => {
+    console.log( state.shoopingList )
+    let lists = state.shoopingList.filter((item) => 
+    { 
+      console.log(item.id)
       if (item.id === id) {
-        item.completed = !item.completed
-      }
-    })
-    // dispatch({type:SET_COMPLETE_ITEM, payload: })
+         console.log(id)
+          item.completed = !item.completed
+       }}
+    )
+    console.log( lists )
+    dispatch({type:SET_COMPLETE_ITEM, payload: lists })
   }
 
   return (

@@ -29,6 +29,8 @@ const ShoppingList = () => {
     a = amount <= 1 ? a == 1 : a
     return setAmount(amount + a)
   }
+  console.log(shoopingList.length)
+  console.log(shoopingList)
   return (
     <>
       <VStack
@@ -79,9 +81,10 @@ const ShoppingList = () => {
 
         {shoopingList.length > 0 &&
           shoopingList.map((list) => {
+            // console.log(list.id)
             return (
               <Flex
-                key={list?.id}
+                key={list[0]?.id}
                 width={'100%'}
                 justifyContent={'space-between'}
                 alignItems='center'
@@ -91,7 +94,7 @@ const ShoppingList = () => {
                     colorScheme='green'
                     size={'lg'}
                     borderColor='green.300'
-                    onChange={() => setCompleteItem(list[0]?.id)}
+                    onChange={() => setCompleteItem(list?.id)}
                   ></Checkbox>
                 )}
                 <Button

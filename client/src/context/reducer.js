@@ -99,6 +99,7 @@ const reducer = (state, action) => {
   if (action.type === SET_COMPLETE_ITEM) {
     return {
       ...state,
+      shoopingList: action.payload.lists,
     }
   }
 
